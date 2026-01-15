@@ -5,7 +5,7 @@ So **from several versions of Makefile** to use **1** and **'ignore'** the other
  1. **Use the -f (File) Flag manually**<br>
  `make -f Makefile1`
 
- 2. **Or you can run → <span style="font-size:1.2em"><em>executable <ins>run</ins></em></span>:**<br>
+ 2. **Or you can run → <span style="font-size:1.4em"><em>executable <ins>run</ins></em></span>:**<br>
  use it like this:<br>
 `./run 1` (Runs Makefile1)<br>
 `./run 2 clean` (Runs the 'clean' target inside Makefile2)
