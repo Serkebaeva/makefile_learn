@@ -1,15 +1,12 @@
 #!/bin/bash
-# Usage: ./run 1 [target]
-
-FILE="makefile$1"
-shift # remove the '1' from the arguments
-
-if [ -f "$FILE" ]; then
-    make -f "$FILE" "$@"
-else
-    echo "Error: $FILE not found."
+# Check if a number was provided
+if [ -z "$1" ]; then
+    echo "Usage: ./run [number] [target]"
+    exit 1
 fi
 
-# Use it like this: 
-# ./run 1 (Runs Makefile1)
-# ./run 2 clean (Runs the 'clean' target inside Makefile2)
+MAKE_FILE="makefile$1"
+shift 
+
+# Run make, passing the remaining arguments
+make -f "$MAKE_FILE" "$@"
