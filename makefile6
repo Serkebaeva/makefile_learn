@@ -1,0 +1,42 @@
+IDIR = include
+# source code directory
+SDIR = src
+# object code directory
+ODIR = src/obj
+# library directory
+LDIR = lib
+
+CC = cc
+CFLAGS = -I$(IDIR)
+LIBS = -lm
+
+# Set default target
+.DEFAULT_GOAL := hellomake
+
+_DEPS = hellomake.h
+DEPS = $(IDIR)/$(_DEPS)
+
+# Objects will be created in src/obj
+_OBJ = hellomake.o hellofunc.o
+OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+
+# Rule: to create Obj directory if it doesn't exist
+$(ODIR):
+	mkdir -p $(ODIR)
+
+# Rule: How to create .o files in src/obj from .c files in src
+$(ODIR)/%.o: $(SDIR)/%.c $(DEPS) | $(ODIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Rule: How to link the final executable
+hellomake: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+
+.PHONY: clean
+
+clean:
+	# Remove all object files and the executable
+	rm -rf $(ODIR)
+	rm -f hellomake
+	# Cleanup temp editor files from everywhere
+	rm -f *~ core ${IDIR}/*~ ${SDIR}/*~
